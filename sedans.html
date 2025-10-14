@@ -195,78 +195,6 @@
           transform: scale(1.2);
       }
     </style>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const carousels = document.querySelectorAll(".carousel-container");
-
-        carousels.forEach((carousel) => {
-          const images = carousel.querySelectorAll(".carousel-images img");
-          const dotsContainer = carousel.querySelector(".carousel-dots");
-          const prevBtn = carousel.querySelector(".prev");
-          const nextBtn = carousel.querySelector(".next");
-          let currentIndex = 0;
-
-          // Create dots for each image
-          images.forEach((_, i) => {
-            const dot = document.createElement("span");
-            dot.classList.add("dot");
-            dot.addEventListener("click", () => {
-              currentIndex = i;
-              showImage(currentIndex);
-            });
-            dotsContainer.appendChild(dot);
-          });
-
-          const dots = dotsContainer.querySelectorAll(".dot");
-
-          function showImage(index) {
-            // Show the correct image
-            images.forEach((img, i) => {
-              img.classList.remove("active");
-              if (i === index) {
-                img.classList.add("active");
-              }
-            });
-            // Highlight the correct dot
-            dots.forEach((dot, i) => {
-              dot.classList.remove("active");
-              if (i === index) {
-                dot.classList.add("active");
-              }
-            });
-          }
-
-          prevBtn.addEventListener("click", () => {
-            currentIndex =
-              currentIndex > 0 ? currentIndex - 1 : images.length - 1;
-            showImage(currentIndex);
-          });
-
-          nextBtn.addEventListener("click", () => {
-            currentIndex =
-              currentIndex < images.length - 1 ? currentIndex + 1 : 0;
-            showImage(currentIndex);
-          });
-
-          // Basic Swipe functionality
-          let touchstartX = 0;
-          let touchendX = 0;
-          carousel.addEventListener("touchstart", (e) => {
-            touchstartX = e.changedTouches[0].screenX;
-          }, { passive: true });
-          carousel.addEventListener("touchend", (e) => {
-            touchendX = e.changedTouches[0].screenX;
-             // Add a small threshold to prevent accidental swipes
-            if (Math.abs(touchendX - touchstartX) < 10) return;
-            if (touchendX < touchstartX) nextBtn.click();
-            if (touchendX > touchstartX) prevBtn.click();
-          });
-
-          // Initialize first image and dot
-          showImage(currentIndex);
-        });
-      });
-    </script>
   </head>
   <body>
     <header>
@@ -359,6 +287,79 @@
         </div>
 
       </div>
-    </div>    
+    </div>  
+    <!-- Carousel Script -->
+     <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const carousels = document.querySelectorAll(".carousel-container");
+
+        carousels.forEach((carousel) => {
+          const images = carousel.querySelectorAll(".carousel-images img");
+          const dotsContainer = carousel.querySelector(".carousel-dots");
+          const prevBtn = carousel.querySelector(".prev");
+          const nextBtn = carousel.querySelector(".next");
+          let currentIndex = 0;
+
+          // Create dots for each image
+          images.forEach((_, i) => {
+            const dot = document.createElement("span");
+            dot.classList.add("dot");
+            dot.addEventListener("click", () => {
+              currentIndex = i;
+              showImage(currentIndex);
+            });
+            dotsContainer.appendChild(dot);
+          });
+
+          const dots = dotsContainer.querySelectorAll(".dot");
+
+          function showImage(index) {
+            // Show the correct image
+            images.forEach((img, i) => {
+              img.classList.remove("active");
+              if (i === index) {
+                img.classList.add("active");
+              }
+            });
+            // Highlight the correct dot
+            dots.forEach((dot, i) => {
+              dot.classList.remove("active");
+              if (i === index) {
+                dot.classList.add("active");
+              }
+            });
+          }
+
+          prevBtn.addEventListener("click", () => {
+            currentIndex =
+              currentIndex > 0 ? currentIndex - 1 : images.length - 1;
+            showImage(currentIndex);
+          });
+
+          nextBtn.addEventListener("click", () => {
+            currentIndex =
+              currentIndex < images.length - 1 ? currentIndex + 1 : 0;
+            showImage(currentIndex);
+          });
+
+          // Basic Swipe functionality
+          let touchstartX = 0;
+          let touchendX = 0;
+          carousel.addEventListener("touchstart", (e) => {
+            touchstartX = e.changedTouches[0].screenX;
+          }, { passive: true });
+          carousel.addEventListener("touchend", (e) => {
+            touchendX = e.changedTouches[0].screenX;
+             // Add a small threshold to prevent accidental swipes
+            if (Math.abs(touchendX - touchstartX) < 10) return;
+            if (touchendX < touchstartX) nextBtn.click();
+            if (touchendX > touchstartX) prevBtn.click();
+          });
+
+          // Initialize first image and dot
+          showImage(currentIndex);
+        });
+      });
+    </script>  
   </body>
 </html>
